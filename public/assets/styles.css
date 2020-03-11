@@ -1,0 +1,41 @@
+/* GENERAL */
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #100F0F;
+}
+
+a, a:hover{
+    color: #100F0F;
+    text-decoration: none;
+}
+
+/* NAVBAR */
+#navbar{
+    display: flex;
+    height: 20vh;
+    justify-content: space-around;
+}
+
+.navbar-item, .navbar-item:hover{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #100F0F;
+    color: white;
+    border-right: white 1px solid;
+}
+.navbar-item:last-child{
+    border: none;
+}
+
+#active{
+    background-color: #4F4F4F;
+}
+
+.navbar-item h5{
+    font-size: 2rem;
+}
