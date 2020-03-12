@@ -10,6 +10,7 @@ window.addEventListener("scroll", function(e) {
  
     //Définition du pourcentage de scroll
     var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+    console.log(scrollPercentage)
 
     //Définition du pourcentage de dessin
     var drawLength = pathLength * scrollPercentage;
@@ -23,5 +24,17 @@ window.addEventListener("scroll", function(e) {
     } else {
         path.style.strokeDasharray = pathLength + ' ' + pathLength;
     }
+
+    // if(scrollPercentage <= 0.01) {
+    //     $('#arrow').fadeIn()
+    //     $('#story-1').fadeIn()
+    //     $('#bioTitle').fadeIn()
+    // }
+
+    // if(scrollPercentage >= 0.01) {
+    //     $('#arrow').fadeOut()
+    //     $('#story-1').fadeOut()
+    //     $('#bioTitle').fadeOut()
+    // }
   
 });

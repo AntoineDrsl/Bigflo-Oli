@@ -1,12 +1,36 @@
 #svg-icon {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-  }
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+}
 
-  #bioContainer{
-    height: 5000px;
-  }
+#bioContainer{
+  height: 5000px;
+}
+
+#screen{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.story{
+  height: 60vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.story-img{
+  width: 40%;
+  height: 150px;
+}
+
+.story-text{
+  width: 45%;
+  height: 50%;
+}
+
+#arrow{
+  font-size: 7rem;
+}
