@@ -13,7 +13,17 @@ class MainController extends AbstractController
     public function index()
     {
         return $this->render('main/index.html.twig', [
-            'onPage' => 'home', //for navbar.html.twig
+            'onPage' => 'home', //pour navbar.html.twig
+        ]);
+    }
+
+    /**
+     * @Route("/biographie", name="bio")
+     */
+    public function bio()
+    {
+        return $this->render('main/bio.html.twig', [
+            'onPage' => 'bio'
         ]);
     }
 }

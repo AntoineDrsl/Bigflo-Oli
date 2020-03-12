@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bigflo & Oli{% endblock %}
+{% block title %}Bigflo & Oli - Accueil{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/index.css') }}">{% endblock %}
 
 {% block body %}
     <div id="indexContainer">  
         <div id="mainContainer">
-            <h1>Bigflo & Oli</h1>
+            <h1 class="text-center">Bigflo & Oli</h1>
             <div id="bigflo-oli">
                 <img src="{{ asset('assets/images/bigflo-oli.png') }}" alt="Bigflo & Oli">
             </div>

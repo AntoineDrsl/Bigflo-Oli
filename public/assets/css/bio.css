@@ -1,0 +1,12 @@
+#svg-icon {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+  }
+
+  #bioContainer{
+    height: 5000px;
+  }
