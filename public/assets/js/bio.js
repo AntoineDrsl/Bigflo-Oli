@@ -1,29 +1,5 @@
-// MUSIC ICON
-var path = document.querySelector('#path-icon');
-var pathLength = path.getTotalLength();
-//On supprime l'élément au chargement de la page et on le coupe en petits segments
-path.style.strokeDasharray = pathLength + ' ' + pathLength;
-path.style.strokeDashoffset = pathLength;
-window.addEventListener("scroll", function(e) {
- 
-    //Définition du pourcentage de scroll
-    var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-
-    //Définition du pourcentage de dessin
-    var drawLength = pathLength * scrollPercentage;
-    
-    //Définition de ce qu'il faut dessiner
-    path.style.strokeDashoffset = pathLength - drawLength;
-        
-    //Quand le pourcentage de scroll atteint 100%, on lie tous les segments, sinon on continue de les couper
-    if (scrollPercentage >= 0.99) {
-        path.style.strokeDasharray = "none";
-    } else {
-        path.style.strokeDasharray = pathLength + ' ' + pathLength;
-    }
-});
-
 // SCROLL DISPLAY
+// Bibliothèque ScrollOut: on défini l'élément qu'on veut cibler, et la fonction à lancer lorsque l'élément apparait/disparait de l'écran
 ScrollOut({
     targets: 'section',
     onShown: function(el) {
@@ -50,8 +26,34 @@ ScrollOut({
 });
 
 // GO UP
+// Au clic sur la flèche, on remonte en faut de la page avec une anim pour le smooth
 $('#arrow').on('click', function() {
     $('html, body').animate(
         { scrollTop: $('#navbar').offset().top }, 750
     )
 })
+
+// MUSIC ICON
+var path = document.querySelector('#path-icon');
+var pathLength = path.getTotalLength();
+//On supprime l'élément au chargement de la page et on le coupe en petits segments
+path.style.strokeDasharray = pathLength + ' ' + pathLength;
+path.style.strokeDashoffset = pathLength;
+window.addEventListener("scroll", function(e) {
+ 
+    //Définition du pourcentage de scroll
+    var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+
+    //Définition du pourcentage de dessin
+    var drawLength = pathLength * scrollPercentage;
+    
+    //Définition de ce qu'il faut dessiner
+    path.style.strokeDashoffset = pathLength - drawLength;
+        
+    //Quand le pourcentage de scroll atteint 100%, on lie tous les segments, sinon on continue de les couper
+    if (scrollPercentage >= 0.99) {
+        path.style.strokeDasharray = "none";
+    } else {
+        path.style.strokeDasharray = pathLength + ' ' + pathLength;
+    }
+});

@@ -9,7 +9,7 @@
     <a href="#" class="navbar-item" id="{% if onPage == 'real'%}active{% endif %}">
         <h5>Réalisations</h5>
     </a>
-    <a href="#" class="navbar-item" id="{% if onPage == 'account'%}active{% endif %}">
+    <a href="{% if is_granted('ROLE_USER') %}{{ path('account') }}{% else %}{{ path('login') }}{% endif %}" class="navbar-item" id="{% if onPage == 'account'%}active{% endif %}">
         <h5>Mon compte</h5>
     </a>
 
