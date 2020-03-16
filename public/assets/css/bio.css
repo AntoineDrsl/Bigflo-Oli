@@ -2,35 +2,152 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 150px;
-}
-
-#bioContainer{
-  height: 5000px;
-}
-
-#screen{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.story{
-  height: 60vh;
-  display: flex;
-  justify-content: space-between;
-}
-
-.story-img{
-  width: 40%;
-  height: 150px;
-}
-
-.story-text{
-  width: 45%;
-  height: 50%;
+  width: 100px;
+  z-index: 2;
 }
 
 #arrow{
-  font-size: 7rem;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  padding: 15px;
+  background-color: rgb(75, 72, 72);
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 3;
 }
+#arrow i{
+  color: white;
+  font-size: 3em;
+  z-index: 4;
+}
+
+section{
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imgContent{
+  width: 30%;
+}
+
+.imgAppear{
+  animation-name: imgAppear;
+  animation-duration: 2s;
+  -webkit-animation-name: imgAppear;
+  -webkit-animation-duration: 2s;
+  -moz-animation-name: imgAppear;
+  -moz-animation-duration: 2s;
+  -o-animation-name: imgAppear;
+  -o-animation-duration: 2s;
+}
+@keyframes imgAppear{
+  from {width: 33%;}
+  to {width: 30%;}
+}
+@-webkit-keyframes imgAppear{
+  from {width: 33%;}
+  to {width: 30%;}
+}
+@-moz-keyframes imgAppear{
+  from {width: 33%;}
+  to {width: 30%;}
+}
+@-o-keyframes imgAppear{
+  from {width: 33%;}
+  to {width: 30%;}
+}
+
+.imgContent img{
+  border-radius: 10px;
+  width: 100%;
+}
+
+.textContent{
+  position: absolute;
+  right: 0;
+  width: 60%;
+}
+
+.textAppear{
+  animation-name: textAppear;
+    animation-duration: 2s;
+    -webkit-animation-name: textAppear;
+    -webkit-animation-duration: 2s;
+    -moz-animation-name: textAppear;
+    -moz-animation-duration: 2s;
+    -o-animation-name: textAppear;
+    -o-animation-duration: 2s;
+}
+@keyframes textAppear{
+  from {right: 100px;}
+  to {right: 0;}
+}
+@-webkit-keyframes textAppear{
+  from {right: 100px;}
+  to {right: 0;}
+}
+@-moz-keyframes textAppear{
+  from {right: 100px;}
+  to {right: 0;}
+}
+@-o-keyframes textAppear{
+  from {right: 100px;}
+  to {right: 0;}
+}
+
+.textContent h2, h1{
+  font-size: 3rem;
+}
+.textContent h3{
+  font-size: 1.8rem;
+}
+.textContent p{
+  font-size: 1.2rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1055px) {
+  #svg-icon {
+    width: 50px;
+  }
+}
+
+@media (max-width: 764px) {
+
+  h1{
+    margin-bottom: 100px;
+  }
+
+  section{
+    position: static;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 100px;
+  }
+
+  .textContent{
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .imgContent{
+    display: block;
+  }
+
+  #arrow{
+    padding: 2px;
+  }
+  #arrow i{
+    padding: 10px;
+    font-size: 1.5em;
+  }
+}
+
+
