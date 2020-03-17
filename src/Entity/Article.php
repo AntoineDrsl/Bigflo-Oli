@@ -46,6 +46,8 @@ class Article
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        //On rentre la date de création automatiquement
+        $this->created_at = new \DateTime();
     }
 
     public function getId(): ?int
@@ -77,12 +79,12 @@ class Article
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
 

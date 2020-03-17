@@ -5,9 +5,18 @@
 {% block body %}
 <div class="container">
     <form method="post" class="mt-5">
+
+        <!-- On affiche les éventuels msg d'erreur -->
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
+        
+        <!-- On affiche les éventuels msg de succès -->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success my-3">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
         <label for="inputEmail">Email</label>

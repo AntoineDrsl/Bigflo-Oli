@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1 class="my-5 text-center">Articles</h1>
+
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ asset('assets/uploads/articles/' ~ article.image) }}" alt="{{ article.title }}" class="card-img-top w-100">
+                <div class="card-body">
+                    <h2 class="card-title">{{ article.title }}</h2>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

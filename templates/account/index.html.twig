@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}Mon compte - {{ app.user.pseudo }}{% endblock %}
 
 {% block body %}
-<div class="mb-3">
-    You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+<div class="container">
+
+    <h1 class="my-5 text-center">Bienvenue {{ app.user.pseudo }}</h1>
+    <a href="{{ path('create-article') }}" class="btn btn-primary">Créer un nouvel article</a>
+    <a href="{{ path('logout') }}" class="btn btn-warning">Se déconnecter</a>
+
 </div>
 {% endblock %}

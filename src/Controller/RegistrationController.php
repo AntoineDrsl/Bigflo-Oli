@@ -7,9 +7,10 @@ use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class RegistrationController extends AbstractController
 {
@@ -42,7 +43,9 @@ class RegistrationController extends AbstractController
 
             //email
 
-            return $this->redirectToRoute('home');
+            //On ajoute un msg de succès avant de rediriger
+            $this->addFlash('success', 'Votre compte a bien été créé, vous pouvez maintenant vous connecter !');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration/register.html.twig', [

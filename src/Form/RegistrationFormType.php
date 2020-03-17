@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -22,8 +23,8 @@ class RegistrationFormType extends AbstractType
         // On construit le formulaire de connexion en ajoutant des contraintes
         $builder
             ->add('pseudo', TextType::class, [
-                'label' => false,
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Pseudo',
+                'attr' => ['class' => 'form-control mb-2'],
                 'constraints' => [
                     new Length([
                         'min' => 2,
@@ -34,8 +35,11 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => false,
-                'attr' => ['class' => 'form-control']
+                'label' => 'Email',
+                'attr' => ['class' => 'form-control mb-2'],
+                'constraints' => [
+                    new Email(['message' => 'Votre adresse email est invalide'])
+                ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Accepter les conditions d\'utilisation',
@@ -50,12 +54,12 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Vos mots de passe ne correspondent pas',
                 'first_options' => [
-                    'label' => false,
-                    'attr' => ['class' => 'form-control']
+                    'label' => 'Mot de passe',
+                    'attr' => ['class' => 'form-control  mb-2']
                 ],
                 'second_options' => [
-                    'label' => false,
-                    'attr' => ['class' => 'form-control mt-1 mb-4', 'placeholder' => 'Répétez votre mot de passe']
+                    'label' => 'Répétez votre mot de passe',
+                    'attr' => ['class' => 'form-control mb-4', 'placeholder' => 'Répétez votre mot de passe']
                 ],
                 'mapped' => false,
                 'constraints' => [

@@ -38,6 +38,12 @@ class Comment
      */
     private $created_at;
 
+    public function __construct()
+    {
+        //On rentre la date de création automatiquement
+        $this->created_at = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

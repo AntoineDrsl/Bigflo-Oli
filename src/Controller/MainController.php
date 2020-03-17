@@ -2,11 +2,17 @@
 
 namespace App\Controller;
 
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
+
     /**
      * @Route("/", name="home")
      */
@@ -24,6 +30,19 @@ class MainController extends AbstractController
     {
         return $this->render('main/bio.html.twig', [
             'onPage' => 'bio'
+        ]);
+    }
+
+    /**
+     * @Route("/articles", name="articles")
+     */
+    public function articles()
+    {
+        $articles = $this->articleRepository->findAll();
+
+        return $this->render('main/articles.html.twig', [
+            'onPage' => 'articles',
+            'articles' => $articles
         ]);
     }
 }

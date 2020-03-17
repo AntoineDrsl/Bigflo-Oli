@@ -6,7 +6,7 @@
     <a href="{{ path('bio') }}" class="navbar-item" id="{% if onPage == 'bio'%}active{% endif %}">
         <h5>Biographie</h5>
     </a>
-    <a href="#" class="navbar-item" id="{% if onPage == 'real'%}active{% endif %}">
+    <a href="{{ path('articles') }}" class="navbar-item" id="{% if onPage == 'articles'%}active{% endif %}">
         <h5>Réalisations</h5>
     </a>
     <a href="{% if is_granted('ROLE_USER') %}{{ path('account') }}{% else %}{{ path('login') }}{% endif %}" class="navbar-item" id="{% if onPage == 'account'%}active{% endif %}">
