@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - {{ app.user.pseudo }}{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/update-user.css') }}">{% endblock%}
+
+{% block body %}
+    <div class="container">
+
+        {{ form_start(userForm) }}
+
+            <h1 class="my-5 text-center">Modifier mes informations</h1>
+
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    {{ form_row(userForm.pseudo) }}
+                    {{ form_row(userForm.email) }}
+                    {{ form_row(userForm.password) }}
+                </div>
+                <div class="col-md-3 offset-md-1">
+                    <label for="user_avatar" class="avatarLabel">
+                        <p>Photo de profil</p>
+                        <div id="avatarContainer" class="hasBorder">
+                            <img id="avatar" class="w-100">
+                        </div>
+                    </label>
+                    {{ form_row(userForm.avatar) }}
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <button class="btn btn-lg btn-primary mt-3">Modifier</button>
+            </div>
+
+        {{ form_end(userForm) }}
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/update-user.js') }}"></script>
+{% endblock %}

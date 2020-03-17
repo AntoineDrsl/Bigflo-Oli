@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title | capitalize }}{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1 class="my-5 text-center">{{ article.title | capitalize }}</h1>
+
+    <div>{{ article.content | raw }}</div>
+
+</div>
+{% endblock %}

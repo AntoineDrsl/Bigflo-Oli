@@ -2,12 +2,31 @@
 
 {% block title %}Mon compte - {{ app.user.pseudo }}{% endblock %}
 
+{% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/account.css') }}">{% endblock%}
+
 {% block body %}
 <div class="container">
 
-    <h1 class="my-5 text-center">Bienvenue {{ app.user.pseudo }}</h1>
-    <a href="{{ path('create-article') }}" class="btn btn-primary">Créer un nouvel article</a>
-    <a href="{{ path('logout') }}" class="btn btn-warning">Se déconnecter</a>
+    <h1 class="text-center" id="accountTitle">Bienvenue {{ app.user.pseudo }}</h1>
+
+    <div class="row align-items-center">
+        <div class="col-md-3 offset-md-2">
+            <a href="{{ path('create-article') }}" class="btn btn-primary btn-block mt-5">Créer un nouvel article</a><br>
+            <a href="{{ path('update-user') }}" class="btn btn-warning btn-block mt-3">Modifier mes informations</a><br>
+            <a href="{{ path('logout') }}" class="btn btn-danger btn-block mt-3">Se déconnecter</a>
+        </div>
+        <div class="col-md-3 offset-md-2">
+            {% if user.avatar == null %}
+                <div id="avatarBaseContainer">
+                    <i class="far fa-user-circle"></i>
+                </div>
+            {% else %}
+                <div id="avatarUserContainer">
+                    <img src="{{ asset('assets/uploads/users/' ~ user.avatar) }}" alt="avatar">
+                </div>
+            {% endif %}
+        </div>
+    </div>
 
 </div>
 {% endblock %}

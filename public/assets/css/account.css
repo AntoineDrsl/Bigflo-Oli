@@ -1,0 +1,20 @@
+#accountTitle{
+    margin-top: 50px;
+    margin-bottom: 15vh;
+}
+
+#avatarBaseContainer i{
+    font-size: 15rem;
+}
+
+#avatarUserContainer{
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+}
+
+#avatarUserContainer img{
+    width: 100%;
+    border-radius: 100%;
+    border: 2px solid white;
+}

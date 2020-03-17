@@ -45,4 +45,17 @@ class MainController extends AbstractController
             'articles' => $articles
         ]);
     }
+
+    /**
+     * @Route("/article/{id}", name="article")
+     */
+    public function article($id)
+    {
+        $article = $this->articleRepository->find($id);
+
+        return $this->render('main/article.html.twig', [
+            'onPage' => '',
+            'article' => $article
+        ]);
+    }
 }

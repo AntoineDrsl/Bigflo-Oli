@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -46,6 +47,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"})
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -172,4 +179,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,14 @@
+input[type="file"] {
+    display: none;
+}
+
+#articleImgContainer{
+    cursor: pointer;
+    width: 350px;
+    height: 350px;
+}
+
+.hasBorder{
+    border: 1px white solid;
+    border-radius: 10px;
+}
