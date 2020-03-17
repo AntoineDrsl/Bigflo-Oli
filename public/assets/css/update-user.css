@@ -9,6 +9,9 @@ input[type="file"] {
 }
 
 .hasBorder{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
     border: 1px white solid;
-    border-radius: 10px;
+    border-radius: 100%;
 }

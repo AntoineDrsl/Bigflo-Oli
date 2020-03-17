@@ -19,9 +19,9 @@
                 </div>
                 <div class="col-md-3 offset-md-1">
                     <label for="user_avatar" class="avatarLabel">
-                        <p>Photo de profil</p>
-                        <div id="avatarContainer" class="hasBorder">
-                            <img id="avatar" class="w-100">
+                        <p class="text-center">Photo de profil</p>
+                        <div id="avatarContainer">
+                            <img id="avatar" class="w-100 hasBorder" {% if user.avatar %}src="{{ asset('assets/uploads/users/' ~ user.avatar) }}"{% endif %}>
                         </div>
                     </label>
                     {{ form_row(userForm.avatar) }}

@@ -9,8 +9,6 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 console.log(e.target.result)
                 $('#avatar').attr('src', e.target.result);
-                $('#avatar').addClass('hasBorder');
-                $('#avatarContainer').removeClass('hasBorder');
             }
 
             reader.readAsDataURL(input.files[0]);

@@ -104,7 +104,8 @@ class AccountController extends AbstractController
 
         return $this->render('account/update-user.html.twig', [
             'onPage' => 'account',
-            'userForm' => $form->createView()
+            'userForm' => $form->createView(),
+            'user' => $user
         ]);
     }
 }
