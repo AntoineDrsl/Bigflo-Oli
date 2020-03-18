@@ -19,9 +19,19 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
+    // On crée une fonction pour trouver les articles à partir du plus récent
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findAllByNew()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {

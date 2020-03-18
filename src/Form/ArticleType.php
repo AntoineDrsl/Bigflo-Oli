@@ -28,7 +28,7 @@ class ArticleType extends AbstractType
                 'config' => [
                     'toolbar' => 'basic',
                     'language' => 'fr',
-                    'uiColor' => '#D5D2D2'
+                    'uiColor' => '#FCFCFC'
                 ]
             ])
             ->add('image', FileType::class, [

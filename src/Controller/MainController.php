@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
@@ -38,7 +42,8 @@ class MainController extends AbstractController
      */
     public function articles()
     {
-        $articles = $this->articleRepository->findAll();
+        // On utilise une fonction qu'on définit dans ArticleRepository.php
+        $articles = $this->articleRepository->findAllByNew();
 
         return $this->render('main/articles.html.twig', [
             'onPage' => 'articles',
@@ -49,13 +54,34 @@ class MainController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function article($id)
+    public function article($id, Request $request, EntityManagerInterface $entityManager)
     {
         $article = $this->articleRepository->find($id);
+        $user = $this->getUser();
+        $comments = $article->getComments();
+        $newComment = new Comment();
+        dump($comments);
+
+        $form = $this->createForm(CommentType::class, $newComment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $newComment = $form->getData();
+            $newComment->setArticle($article);
+            $newComment->setUser($user);
+
+            $entityManager->persist($newComment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article', ['id' => $article->getId()]);
+        }
 
         return $this->render('main/article.html.twig', [
             'onPage' => '',
-            'article' => $article
+            'article' => $article,
+            'commentForm' => $form->createView(),
+            'comments' => $comments
         ]);
     }
 }
