@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Form\UserType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -14,6 +15,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
+
     /**
      * @Route("/account", name="account")
      */
@@ -24,37 +30,6 @@ class AccountController extends AbstractController
         return $this->render('account/index.html.twig', [
             'onPage' => 'account',
             'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/article/create", name="create-article")
-     */
-    public function createArticle(Request $request, EntityManagerInterface $entityManager)
-    {
-        $newArticle = new Article();
-        $form = $this->createForm(ArticleType::class, $newArticle);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $newArticle = $form->getData();
-
-            $image = $newArticle->getImage();
-            $imageName = md5(uniqid()).'.'.$image->guessExtension();
-            $image->move($this->getParameter('upload_files_articles'), $imageName);
-            $newArticle->setImage($imageName);
-
-            $entityManager->persist($newArticle);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Votre article à bien été créé !');
-            return $this->redirectToRoute('articles');
-        }
-
-        return $this->render('account/create-article.html.twig', [
-            'onPage' => '',
-            'articleForm' => $form->createView()
         ]);
     }
 
@@ -84,6 +59,12 @@ class AccountController extends AbstractController
             }
 
             if($form->get('avatar')->getData() !== null) {
+
+                // On supprime le fichier précédent avec la fonction définie dans l'entity Article
+                if($previousAvatarName) {
+                    $user->deleteFileOnUpdate($previousAvatarName);
+                }
+
                 $avatar = $user->getAvatar();
                 $avatarName = md5(uniqid()).'.'.$avatar->guessExtension();
                 $avatar->move($this->getParameter('upload_files_users'), $avatarName);
@@ -98,7 +79,7 @@ class AccountController extends AbstractController
             $entityManager->flush();
 
             //On ajoute un msg de succès avant de rediriger
-            $this->addFlash('success', 'Votre compte a bien été modifié !');
+            $this->addFlash('success', 'Vos informations ont bien été modifiées !');
             return $this->redirectToRoute('account');
         }
 
@@ -107,5 +88,117 @@ class AccountController extends AbstractController
             'userForm' => $form->createView(),
             'user' => $user
         ]);
+    }
+
+    /**
+     * @Route("/article/create", name="create-article")
+     */
+    public function createArticle(Request $request, EntityManagerInterface $entityManager)
+    {
+        $newArticle = new Article();
+        $form = $this->createForm(ArticleType::class, $newArticle);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $newArticle = $form->getData();
+
+            $image = $newArticle->getImage();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $image->move($this->getParameter('upload_files_articles'), $imageName);
+            $newArticle->setImage($imageName);
+
+            $entityManager->persist($newArticle);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre article a bien été créé !');
+            return $this->redirectToRoute('articles');
+        }
+
+        return $this->render('account/create-article.html.twig', [
+            'onPage' => '',
+            'articleForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/article/update/{id}", name="update-article")
+     */
+    public function updateArticle($id, Request $request, EntityManagerInterface $entityManager)
+    {
+
+        $article = $this->articleRepository->find($id);
+
+        if($article) {
+
+            $previousImageName = $article->getImage();
+
+            $article->setImage(new File($this->getParameter('upload_files_articles').'/'.$article->getImage()));
+            $form = $this->createForm(ArticleType::class, $article);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+
+                $article = $form->getData();
+
+                if($form->get('image')->getData() !== null) {
+
+                    // On supprime le fichier précédent avec la fonction définie dans l'entity Article
+                    if($previousImageName) {
+                        $article->deleteFileOnUpdate($previousImageName);
+                    }
+
+                    // On uplod la nouvelle image dans nos fichiers
+                    $image = $article->getImage();
+                    $imageName = md5(uniqid()).'.'.$image->guessExtension();
+                    $image->move($this->getParameter('upload_files_articles'), $imageName);
+                    $article->setImage($imageName);
+                } else {
+                    $article->setImage($previousImageName);
+                }
+
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'L\'article a bien été modifié !');
+                return $this->redirectToRoute('article', ['id' => $article->getId()]);
+            }
+
+            return $this->render('account/update-article.html.twig', [
+                'onPage' => '',
+                'articleForm' => $form->createView(),
+                'article' => $article
+            ]);
+
+        } else {
+
+            return $this->redirectToRoute('articles');
+
+        }
+        
+    }
+
+    /**
+     * @Route("/article/remove/{id}", name="remove-article")
+     */
+    public function removeArticle($id, EntityManagerInterface $entityManager)
+    {
+        $article = $this->articleRepository->find($id);
+
+        if($article) {
+            //On supprime l'image avec la fonction définie dans l'entité Article
+            $article->deleteFile();
+
+            $entityManager->remove($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article a bien été supprimé !');
+            return $this->redirectToRoute('articles');
+
+        } else {
+
+            return $this->redirectToRoute('articles');
+
+        }
     }
 }

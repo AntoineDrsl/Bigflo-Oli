@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de "{{ article.title }}"{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/create-article.css') }}">{% endblock%}
+
+{% block body %}
+<div class="container">
+
+    <h1 class="my-5 text-center">Modifier l'article</h1>
+
+    {{ form_start(articleForm) }}
+
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                {{ form_row(articleForm.title, {'required': false}) }}
+                {{ form_row(articleForm.content, {'required': false}) }}
+            </div>
+            <div class="col-md-3 offset-md-1">
+                <label for="article_image" class="articleImageLabel">
+                    <p>Image de couverture</p>
+                    <div id="articleImgContainer" class="hasBorder">
+                        <img id="articleImg" class="w-100" {% if article.image %}src="{{ asset('assets/uploads/articles/' ~ article.image.filename) }}"{% endif %}>
+                    </div>
+                </label>
+                {{ form_row(articleForm.image, {'required': false})}}
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            {{ form_row(articleForm.submit, {'label': 'Modifier l\'article'})}}
+        </div>
+
+    {{ form_end(articleForm) }}
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/create-article.js') }}"></script>
+{% endblock %}

@@ -7,6 +7,12 @@
 {% block body %}
 <div class="container">
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success my-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1 class="mt-5 text-center">{{ article.title | capitalize }}</h1>
     <h5 class="mb-5 text-center"><em>Le {{ article.createdAt.date | date('d/m/Y') }}</em></h5>
 
@@ -19,8 +25,17 @@
         </div>
     </div>
 
-    <h2 class="mt-5 mb-3">Commentaires</h2>
+    <!-- Si l'utilisateur est administrateur -->
+    {% if is_granted('ROLE_ADMIN') %}
+        <div id="adminContainer">
+            <a href="{{ path('update-article', {id: article.id}) }}" class="btn btn-outline-primary btn-lg">Modifier l'article</a>
+            <a href="{{ path('remove-article', {id: article.id}) }}" class="btn btn-outline-danger btn-lg">Supprimer l'article</a>
+        </div>
+    {% endif %}
 
+    <!-- Section commentaires  -->
+    <h2 class="mt-5 mb-3">Commentaires</h2>
+    
     {% if is_granted('ROLE_USER') %}
         {{ form(commentForm) }}
     {% else %}
@@ -32,12 +47,15 @@
     {% if comments.count() == 0 %}
         <p id="noComment">Il n'y a aucun commentaire pour le moment :(</p>
     {% else %}
-        {% for comment in comments %}
-            <div class="commentContainer">
-                <h6><em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em></h6>
-                <p class="comment">{{comment.content}}</p> 
-            </div>
-        {% endfor %}
+        <div id="commentsContainer">
+            {% for comment in comments %}
+                <div class="commentContainer">
+                    <p class="comment">{{comment.content}}</p>
+                    <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
 </div>

@@ -7,6 +7,12 @@
 {% block body %}
 <div class="container">
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success my-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1 class="text-center" id="accountTitle">Bienvenue {{ app.user.pseudo }}</h1>
 
     <div class="row align-items-center">

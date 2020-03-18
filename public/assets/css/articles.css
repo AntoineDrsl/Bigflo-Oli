@@ -36,6 +36,11 @@
 
 @media (max-width: 764px) {
 
+    .articleContainer{
+        width: 250px;
+        height: 350px;
+    }
+
     #articlesContainer{
         justify-content: center;
     }
@@ -73,8 +78,31 @@
     font-size: 1.2rem;
 }
 
+#commentsContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+#commentsContainer hr{
+    background-color: #fff;
+    width: 25%;
+    margin-left: 0;
+}
+
+.commentContainer{
+    display: inline-block;
+    padding: 10px;
+}
+
 .comment{
+    margin: 0;
     font-size: 1.2rem;
+}
+
+#adminContainer{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
 }
 
 @media (max-width: 764px) {

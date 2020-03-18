@@ -41,5 +41,5 @@ security:
         - { path: ^/account, roles: ROLE_USER }
         - { path: ^/account/update, roles: ROLE_USER }
         - { path: ^/logout, role: ROLE_USER }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/article/update, role: ROLE_ADMIN}
+        - { path: ^/article/remove, role: ROLE_ADMIN}

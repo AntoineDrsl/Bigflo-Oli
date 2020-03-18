@@ -57,31 +57,39 @@ class MainController extends AbstractController
     public function article($id, Request $request, EntityManagerInterface $entityManager)
     {
         $article = $this->articleRepository->find($id);
-        $user = $this->getUser();
-        $comments = $article->getComments();
-        $newComment = new Comment();
-        dump($comments);
 
-        $form = $this->createForm(CommentType::class, $newComment);
-        $form->handleRequest($request);
+        if($article) {
 
-        if($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $comments = $article->getComments();
+            $newComment = new Comment();
 
-            $newComment = $form->getData();
-            $newComment->setArticle($article);
-            $newComment->setUser($user);
+            $form = $this->createForm(CommentType::class, $newComment);
+            $form->handleRequest($request);
 
-            $entityManager->persist($newComment);
-            $entityManager->flush();
+            if($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('article', ['id' => $article->getId()]);
+                $newComment = $form->getData();
+                $newComment->setArticle($article);
+                $newComment->setUser($user);
+
+                $entityManager->persist($newComment);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('article', ['id' => $article->getId()]);
+            }
+
+            return $this->render('main/article.html.twig', [
+                'onPage' => '',
+                'article' => $article,
+                'commentForm' => $form->createView(),
+                'comments' => $comments
+            ]);
+        
+        } else {
+
+            return $this->redirectToRoute('articles');
+
         }
-
-        return $this->render('main/article.html.twig', [
-            'onPage' => '',
-            'article' => $article,
-            'commentForm' => $form->createView(),
-            'comments' => $comments
-        ]);
     }
 }

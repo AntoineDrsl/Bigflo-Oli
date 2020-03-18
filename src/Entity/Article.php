@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
@@ -21,17 +22,35 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le titre de l'article ne peut pas être vide",
+     *      maxMessage = "Le titre de l'article ne peut pas faire plus de {{limit}} caractères"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 1,
+     *      minMessage = "Le contenu de l'article ne peut pas être vide"
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\File(mimeTypes={"image/png", "image/jpeg"})
+     * @Assert\File(
+     * mimeTypes={"image/png", "image/jpeg"},
+     * mimeTypesMessage = "Le format de votre fichier est invalide ({{ type }}). Les formats autorisés sont {{ types }}",
+     * disallowEmptyMessage = "L\'article doit avoir une photo de couverture",
+     * maxSizeMessage = "Votre fichier est trop lourd ({{size}} {{suffix}}. Le poids maximum est de {{limit}} {{suffix}}",
+     * )
+     * @Assert\NotBlank(
+     * message = "L'article doit avoir une photo de couverture"
+     * )
      */
     private $image;
 
@@ -134,5 +153,24 @@ class Article
         }
 
         return $this;
+    }
+
+    /**
+    * @ORM\PostRemove
+    */
+    public function deleteFile() 
+    {
+        if(file_exists(__DIR__ . '/../../public/assets/uploads/articles/'.$this->image)) {
+            unlink(__DIR__ . '/../../public/assets/uploads/articles/'.$this->image);
+        }
+        return true;
+    }
+
+    public function deleteFileOnUpdate(String $previousImage) 
+    {
+        if(file_exists(__DIR__ . '/../../public/assets/uploads/articles/'.$previousImage)) {
+            unlink(__DIR__ . '/../../public/assets/uploads/articles/'.$previousImage);
+        }
+        return true;
     }
 }

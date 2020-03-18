@@ -192,4 +192,12 @@ class User implements UserInterface
         return $this;
     }
 
+    public function deleteFileOnUpdate(String $previousImage) 
+    {
+        if(file_exists(__DIR__ . '/../../public/assets/uploads/users/'.$previousImage)) {
+            unlink(__DIR__ . '/../../public/assets/uploads/users/'.$previousImage);
+        }
+        return true;
+    }
+
 }

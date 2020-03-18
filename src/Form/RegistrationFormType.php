@@ -25,6 +25,7 @@ class RegistrationFormType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => ['class' => 'form-control mb-2'],
+                'empty_data' => '',
                 'constraints' => [
                     new Length([
                         'min' => 2,
@@ -36,6 +37,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'empty_data' => '',
                 'attr' => ['class' => 'form-control mb-2'],
                 'constraints' => [
                     new Email(['message' => 'Votre adresse email est invalide'])

@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ArticleType extends AbstractType
 {
@@ -20,11 +22,13 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre de l\'article',
-                'attr' => ['class' => 'form-control mb-4']
+                'attr' => ['class' => 'form-control mb-4'],
+                'empty_data' => ''
             ])
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu de l\'article',
                 'attr' => ['class' => 'form-control'],
+                'empty_data' => '',
                 'config' => [
                     'toolbar' => 'basic',
                     'language' => 'fr',

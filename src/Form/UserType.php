@@ -23,6 +23,7 @@ class UserType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'label' => 'Nouveau pseudo',
                 'required' => false,
+                'empty_data' => '',
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new Length([
@@ -36,9 +37,16 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Nouveau email',
                 'required' => false,
+                'empty_data' => '',
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
-                    new Email(['message' => 'Votre adresse email est invalide'])
+                    new Email(['message' => 'Votre adresse email est invalide']),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Merci d\'entrer une adresse email',
+                        'max' => 255,
+                        'maxMessage' => 'Votre email ne peut pas faire plus de {{ limit }} caractères'
+                    ])
                 ]
             ])
             ->add('password', RepeatedType::class, [
