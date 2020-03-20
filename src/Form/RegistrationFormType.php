@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les conditions d\'utilisation',
+                'label' => false,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -61,7 +61,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => 'Répétez votre mot de passe',
-                    'attr' => ['class' => 'form-control mb-4', 'placeholder' => 'Répétez votre mot de passe']
+                    'attr' => ['class' => 'form-control mb-4']
                 ],
                 'mapped' => false,
                 'constraints' => [

@@ -17,7 +17,7 @@
                     {{ form_row(userForm.email) }}
                     {{ form_row(userForm.password) }}
                 </div>
-                <div class="col-md-3 offset-md-1">
+                <div class="col-md-3 offset-md-1 text-center">
                     <label for="user_avatar" class="avatarLabel">
                         <p class="text-center">Photo de profil</p>
                         <div id="avatarContainer">
@@ -28,11 +28,11 @@
                 </div>
             </div>
             <div class="text-center mt-5">
-                <button class="btn btn-lg btn-primary mt-3">Modifier</button>
+                <button class="btn btn-lg btn-outline-primary mt-3">Modifier</button>
             </div>
 
         {{ form_end(userForm) }}
-        <a href="{{ path('account')}}" class="btn btn-outline-light">Revenir au compte</a>
+        <a href="{{ path('account')}}" class="btn btn-outline-light my-5">Revenir au compte</a>
 
     </div>
 {% endblock %}

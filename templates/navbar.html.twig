@@ -23,13 +23,13 @@
     <a href="{{ path('home') }}" class="responsive-navbar-item" id="{% if onPage == 'home'%}active{% endif %}">
         <h5>Accueil</h5>
     </a>
-    <a href="#" class="responsive-navbar-item">
+    <a href="{{ path('bio') }}" class="responsive-navbar-item">
         <h5>Biographie</h5>
     </a>
-    <a href="#" class="responsive-navbar-item">
+    <a href="{{ path('articles') }}" class="responsive-navbar-item">
         <h5>Réalisations</h5>
     </a>
-    <a href="#" class="responsive-navbar-item">
+    <a href="{% if is_granted('ROLE_USER') %}{{ path('account') }}{% else %}{{ path('login') }}{% endif %}" class="responsive-navbar-item">
         <h5>Mon compte</h5>
     </a>
 </ul>

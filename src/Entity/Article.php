@@ -24,7 +24,7 @@ class Article
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *      min = 1,
-     *      max = 255,
+     *      max = 25,
      *      minMessage = "Le titre de l'article ne peut pas être vide",
      *      maxMessage = "Le titre de l'article ne peut pas faire plus de {{limit}} caractères"
      * )

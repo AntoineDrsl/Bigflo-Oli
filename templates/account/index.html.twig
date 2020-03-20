@@ -15,13 +15,15 @@
 
     <h1 class="text-center" id="accountTitle">Bienvenue {{ app.user.pseudo }}</h1>
 
-    <div class="row align-items-center">
-        <div class="col-md-4 offset-md-1">
-            <a href="{{ path('create-article') }}" class="btn btn-outline-light btn-block btn-lg mt-5">Créer un nouvel article</a><br>
+    <div id="accountContainer">
+        <div id="linkContainer">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('create-article') }}" class="btn btn-outline-light btn-block btn-lg mt-5">Créer un nouvel article</a><br>
+            {% endif %}
             <a href="{{ path('update-user') }}" class="btn btn-outline-light btn-block btn-lg mt-3">Modifier mes informations</a><br>
             <a href="{{ path('logout') }}" class="btn btn-outline-danger btn-block btn-lg mt-3">Se déconnecter</a>
         </div>
-        <div class="col-md-3 offset-md-2">
+        <div id="avatarContainer">
             <a href="{{ path('update-user') }}">
                 {% if user.avatar == null %}
                     <div id="avatarBaseContainer">

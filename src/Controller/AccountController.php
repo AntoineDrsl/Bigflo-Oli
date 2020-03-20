@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -15,9 +16,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository, CommentRepository $commentRepository)
     {
         $this->articleRepository = $articleRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -197,6 +199,30 @@ class AccountController extends AbstractController
 
         } else {
 
+            $this->addFlash('error', 'L\'article n\'a pas été trouvé !');
+            return $this->redirectToRoute('articles');
+
+        }
+    }
+
+    /**
+     * @Route("/comment/remove/{id}", name="remove-comment")
+     */
+    public function removeComment($id, EntityManagerInterface $entityManager)
+    {
+        $comment = $this->commentRepository->find($id);
+
+        if($comment) {
+
+            $entityManager->remove($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le commentaire a bien été supprimé !');
+            return $this->redirectToRoute('article', ['id' => $comment->getArticle()->getId()]);
+
+        } else {
+
+            $this->addFlash('error', 'Le commentaire n\'a pas été trouvé');
             return $this->redirectToRoute('articles');
 
         }

@@ -16,7 +16,7 @@
                 {{ form_row(articleForm.title) }}
                 {{ form_row(articleForm.content) }}
             </div>
-            <div class="col-md-3 offset-md-1">
+            <div class="col-md-3 offset-md-1 text-center">
                 <label for="article_image" class="articleImageLabel">
                     <p>Image de couverture</p>
                     <div id="articleImgContainer" class="hasBorder">
@@ -31,6 +31,8 @@
         </div>
 
     {{ form_end(articleForm) }}
+
+    <a href="{{ path('account') }}" class="btn btn-outline-light mt-5">Revenir au compte</a>
 
 </div>
 {% endblock %}

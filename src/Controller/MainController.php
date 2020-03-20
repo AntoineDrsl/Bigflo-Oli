@@ -92,4 +92,14 @@ class MainController extends AbstractController
 
         }
     }
+
+    /**
+     * @Route("/condition-utilisation", name="infos")
+     */
+    public function infos()
+    {
+        return $this->render('main/infos.html.twig', [
+            'onPage' => ''
+        ]);
+    }
 }

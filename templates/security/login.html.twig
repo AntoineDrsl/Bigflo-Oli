@@ -3,8 +3,8 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-<div class="container">
-    <form method="post" class="mt-5">
+<div class="container" style="margin-top: 75px;">
+    <form method="post">
 
         <!-- On affiche les éventuels msg d'erreur -->
         {% if error %}
@@ -35,10 +35,10 @@
             </label>
         </div>
 
-        <button class="btn btn-lg btn-primary mt-3" type="submit">
+        <button class="btn btn-lg btn-outline-primary mt-3" type="submit">
             Se connecter
         </button>
     </form>
-    <div class="mt-4">Pas encore de compte? <a href="{{ path('register') }}" class="text-primary">Rejoignez la communauté !</a></div>
+    <div class="mt-4">Pas encore de compte? <a href="{{ path('register') }}" class="text-info">Rejoignez la communauté !</a></div>
 </div>
 {% endblock %}

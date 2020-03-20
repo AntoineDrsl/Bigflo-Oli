@@ -59,7 +59,7 @@ class UserType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => 'Répétez votre mot de passe',
-                    'attr' => ['class' => 'form-control mb-4', 'placeholder' => 'Répétez votre mot de passe']
+                    'attr' => ['class' => 'form-control mb-4']
                 ],
                 'mapped' => false,
                 'constraints' => [

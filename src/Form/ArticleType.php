@@ -41,7 +41,7 @@ class ArticleType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer l\'article',
-                'attr' => ['class' => 'btn btn-primary']
+                'attr' => ['class' => 'btn btn-outline-primary btn-lg']
             ]);
     }
 

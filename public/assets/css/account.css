@@ -3,6 +3,15 @@
     margin-bottom: 15vh;
 }
 
+#accountContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
+#linkContainer{
+    width: 35%;
+}
+
 #avatarBaseContainer i{
     font-size: 15rem;
 }
@@ -17,4 +26,25 @@
     width: 100%;
     border-radius: 100%;
     border: 2px solid white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 764px) {
+
+    #accountTitle{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    #accountContainer{
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    #linkContainer{
+        width: 75vw;
+        margin-bottom: 75px;
+    }
+
 }

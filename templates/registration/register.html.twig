@@ -3,7 +3,7 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" style="margin-top: 75px">
 
         {{ form_start(registrationForm) }}
 
@@ -12,11 +12,15 @@
             {{ form_row(registrationForm.pseudo) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.plainPassword) }}
-            {{ form_row(registrationForm.agreeTerms) }}
+            <div class="checkbox my-3">
+                <label>
+                    {{ form_row(registrationForm.agreeTerms) }} J'accepte <a href="{{ path('infos') }}" class="text-info">les conditions d'utilisation</a>.
+                </label>
+            </div>
 
-            <button class="btn btn-lg btn-primary mt-3">S'inscrire</button>
+            <button class="btn btn-lg btn-outline-primary mt-3">S'inscrire</button>
 
         {{ form_end(registrationForm) }}
-        <div class="mt-4">Déjà inscris? <a href="{{ path('login') }}" class="text-primary">Connectez-vous !</a></div>
+        <div class="mt-4">Déjà inscris? <a href="{{ path('login') }}" class="text-info">Connectez-vous !</a></div>
     </div>
 {% endblock %}
