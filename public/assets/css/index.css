@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
+    width: 100%;
 }
 
 #mainContainer h1{
@@ -170,6 +171,10 @@
 /* RESPONSIVE */
 @media (max-width: 1055px) {
 
+    #bigflo-oli{
+        height: 60vh;
+    }
+
     #indexContainer{
         height: 100vh;
     }
@@ -193,4 +198,36 @@
     #textOli{
         text-align: left;
     }
+}
+
+@media (max-width: 764px) {
+
+    #bigflo-oli{
+        height: 55vh;
+    }
+
+}
+
+@media (max-width: 564px) {
+
+    #bigflo-oli{
+        height: 45vh;
+    }
+
+}
+
+@media (max-width: 464px) {
+
+    #bigflo-oli{
+        height: 35vh;
+    }
+
+}
+
+@media (max-width: 364px) {
+
+    #bigflo-oli{
+        height: 25vh;
+    }
+
 }

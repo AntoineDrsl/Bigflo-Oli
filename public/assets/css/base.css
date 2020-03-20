@@ -49,7 +49,7 @@ a, a:hover{
 }
 
 /* RESPONSIVE */
-@media (max-width: 764px) {
+@media screen and (max-width: 764px) {
 
     /* NAVBAR */
 

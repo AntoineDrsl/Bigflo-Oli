@@ -127,7 +127,7 @@ section{
     position: static;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 100px;
+    margin-bottom: 300px;
   }
 
   .textContent{

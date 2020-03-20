@@ -98,7 +98,7 @@ class AccountController extends AbstractController
     public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
         $newArticle = new Article();
-        $form = $this->createForm(ArticleType::class, $newArticle);
+        $form = $this->createForm(ArticleType::class, $newArticle, ['validation_groups' => ['creation']]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

@@ -49,7 +49,8 @@ class Article
      * maxSizeMessage = "Votre fichier est trop lourd ({{size}} {{suffix}}. Le poids maximum est de {{limit}} {{suffix}}",
      * )
      * @Assert\NotBlank(
-     * message = "L'article doit avoir une photo de couverture"
+     * message = "L'article doit avoir une photo de couverture2",
+     * groups = {"creation"}
      * )
      */
     private $image;

@@ -6,7 +6,6 @@ use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +36,8 @@ class ArticleType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => false,
-                'attr' => ['class' => 'form-control-file']
+                'attr' => ['class' => 'form-control-file'],
+                'empty_data' => ''
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer l\'article',
@@ -48,7 +48,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Article::class
         ]);
     }
 }
