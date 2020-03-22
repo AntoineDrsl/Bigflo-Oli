@@ -52,13 +52,22 @@
         <div id="commentsContainer">
             {% for comment in comments %}
                 <div class="commentContainer">
-                    <p class="comment">{{comment.content}}</p>
-                    <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <br>
-                        <a href="{{ path('remove-comment', {id: comment.id}) }}" class="btn btn-outline-danger">Supprimer</a>
-                    {% endif %}
-                    <hr>
+                    <div class="commentAvatar">
+                        {% if comment.user.avatar %}
+                            <img src="{{ asset('assets/uploads/users/' ~ comment.user.avatar) }}" alt="avatar">
+                        {% else %}
+                            <i class="far fa-user-circle"></i>
+                        {% endif %}
+                    </div>
+                    <div class="commentInfos">
+                        <p class="comment">{{comment.content}}</p>
+                        <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <br>
+                            <a href="{{ path('remove-comment', {id: comment.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                        {% endif %}
+                        <hr>
+                    </div>
                 </div>
             {% endfor %}
         </div>
