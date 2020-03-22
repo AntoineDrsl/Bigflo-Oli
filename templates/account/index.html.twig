@@ -18,8 +18,9 @@
     <div id="accountContainer">
         <div id="linkContainer">
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('create-article') }}" class="btn btn-outline-light btn-block btn-lg mt-5">Créer un nouvel article</a><br>
+                <a href="{{ path('validate-articles') }}" class="btn btn-outline-light btn-block btn-lg mt-3">Voir les articles à valider</a><br>
             {% endif %}
+            <a href="{{ path('create-article') }}" class="btn btn-outline-light btn-block btn-lg mt-3">Créer un nouvel article</a><br>
             <a href="{{ path('update-user') }}" class="btn btn-outline-light btn-block btn-lg mt-3">Modifier mes informations</a><br>
             <a href="{{ path('logout') }}" class="btn btn-outline-danger btn-block btn-lg mt-3">Se déconnecter</a>
         </div>

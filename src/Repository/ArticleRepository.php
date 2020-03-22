@@ -32,6 +32,34 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+    // On crée une fonction pour trouver les articles validés
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findAllValidated()
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.state = 1')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // On crée une fonction pour trouver les articles en attente de validation
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findAllWaiting()
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.state = 0')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {

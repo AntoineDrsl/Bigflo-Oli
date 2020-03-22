@@ -98,6 +98,7 @@ class AccountController extends AbstractController
     public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
         $newArticle = new Article();
+
         $form = $this->createForm(ArticleType::class, $newArticle, ['validation_groups' => ['creation']]);
         $form->handleRequest($request);
 
@@ -110,10 +111,23 @@ class AccountController extends AbstractController
             $image->move($this->getParameter('upload_files_articles'), $imageName);
             $newArticle->setImage($imageName);
 
+            //Si le user est admin, l'article est directement validé, sinon il passe en attente de validation
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                $newArticle->setState(true);
+            } else {
+                $newArticle->setState(false);
+            }
+
             $entityManager->persist($newArticle);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre article a bien été créé !');
+            //On change le message en fonction du statut du user
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                $this->addFlash('success', 'Votre article a bien été créé !');
+            } else {
+                $this->addFlash('success', 'Votre article a bien été créé ! Un administrateur va bientôt le valider.');
+            }
+
             return $this->redirectToRoute('articles');
         }
 
@@ -178,6 +192,46 @@ class AccountController extends AbstractController
 
         }
         
+    }
+
+    /**
+     * @Route("/articles/validate", name="validate-articles")
+     */
+    public function validateArticles()
+    {
+        //On prend tous les articles en attente de validation (fonction définie dans ArticleRepository.php)
+        $articles = $this->articleRepository->findAllWaiting();
+
+        return $this->render('account/validate-articles.html.twig', [
+            'onPage' => '',
+            'articles' => $articles
+        ]);
+    }
+
+    /**
+     * @Route("/article/validate/{id}", name="validate-article")
+     */
+    public function validateArticle($id, EntityManagerInterface $entityManager)
+    {   
+        // On récupère l'article
+        $article = $this->articleRepository->find($id);
+
+        // Si l'article existe et n'est pas encore validé
+        if($article && !$article->getState()) {
+
+            $article->setState(true);
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article a bien été validé !');
+            return $this->redirectToRoute('validate-articles');
+
+        } else {
+
+            $this->addFlash('error', 'L\'article n\'a pas été trouvé !');
+            return $this->redirectToRoute('validate-articles');
+
+        }
     }
 
     /**

@@ -42,8 +42,8 @@ class MainController extends AbstractController
      */
     public function articles()
     {
-        // On utilise une fonction qu'on définit dans ArticleRepository.php
-        $articles = $this->articleRepository->findAllByNew();
+        // On cherche tous les articles validés (fonction définit dans ArticleRepository.php)
+        $articles = $this->articleRepository->findAllValidated();
 
         return $this->render('main/articles.html.twig', [
             'onPage' => 'articles',
@@ -58,7 +58,8 @@ class MainController extends AbstractController
     {
         $article = $this->articleRepository->find($id);
 
-        if($article) {
+        //On affiche la page si l'article existe et qu'il est validé, ou si il existe et que le user est un admin
+        if(($article && $article->getState()) || ($article && $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))) {
 
             $user = $this->getUser();
             $comments = $article->getComments();

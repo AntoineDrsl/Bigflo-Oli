@@ -65,6 +65,11 @@ class Article
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $state;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -173,5 +178,17 @@ class Article
             unlink(__DIR__ . '/../../public/assets/uploads/articles/'.$previousImage);
         }
         return true;
+    }
+
+    public function getState(): ?bool
+    {
+        return $this->state;
+    }
+
+    public function setState(bool $state): self
+    {
+        $this->state = $state;
+
+        return $this;
     }
 }

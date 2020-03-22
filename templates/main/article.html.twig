@@ -25,9 +25,13 @@
         </div>
     </div>
 
-    <!-- Si l'utilisateur est administrateur -->
+    <!-- Si l'utilisateur est administrateur, on affiche les boutons -->
     {% if is_granted('ROLE_ADMIN') %}
         <div id="adminContainer">
+            <!-- Si l'article est en attente de validation, on permet à l'admin de le valider -->
+            {% if article.state == false %}
+                <a href="{{ path('validate-article', {id: article.id}) }}" class="btn btn-outline-success btn-lg">Valider l'article</a>
+            {% endif %}
             <a href="{{ path('update-article', {id: article.id}) }}" class="btn btn-outline-primary btn-lg">Modifier l'article</a>
             <a href="{{ path('remove-article', {id: article.id}) }}" class="btn btn-outline-danger btn-lg">Supprimer l'article</a>
         </div>

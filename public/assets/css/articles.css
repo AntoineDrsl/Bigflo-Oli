@@ -16,7 +16,7 @@
     justify-content: flex-end;
 }
 
-.articleContainer div{
+.contentContainer{
     height: 75%;
     overflow: hidden;
     display: flex;
@@ -137,6 +137,29 @@
 
     #articleContainer{
         width: 80vw;
+    }
+
+}
+
+/* Articles à valider */
+
+#waitingArticlesContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+@media (max-width: 764px) {
+
+    #waitingArticlesContainer{
+        justify-content: center;
     }
 
 }
