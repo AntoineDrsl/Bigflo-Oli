@@ -15,20 +15,21 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager) //Page de création de compte
     {
         //On vérifie si l'utilisateur est déjà connecté, si oui on le redirige vers son compte
         if ($this->getUser()) {
             return $this->redirectToRoute('account');
         }
         
-        //On traite le formulaire normalement
         $user = new User();
+        //On crée le formulaire définie dans 'Form/RegistrationFormType' (créé automatiquement par Symfony)
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        //On traite le formulaire normalement, en encodant juste le mot de passe avant d'enregistrer le user dans la bdd
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // On encode le mot de passe
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -38,8 +39,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
-            //email
 
             //On ajoute un msg de succès avant de rediriger
             $this->addFlash('success', 'Votre compte a bien été créé, vous pouvez maintenant vous connecter !');
