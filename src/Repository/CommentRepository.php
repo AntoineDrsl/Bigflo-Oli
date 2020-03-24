@@ -19,9 +19,21 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    // /**
-    //  * @return Comment[] Returns an array of Comment objects
-    //  */
+    // On crée une fonction pour trouver les commentaires d'un article grâce à son id à partir du plus récent
+    /**
+     * @return Comment[] Returns an array of Comment objects
+     */
+    public function findByArticleDesc($article)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.article = :val')
+            ->setParameter('val', $article)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {

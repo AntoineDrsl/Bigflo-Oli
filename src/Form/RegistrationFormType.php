@@ -20,8 +20,9 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // On construit le formulaire de connexion en ajoutant des contraintes
+        // On construit le formulaire d'inscription en ajoutant directement les contraintes, notamment por gérer la répétion de mot de passe
         $builder
+            // Champ de type Text pour le pseudo
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => ['class' => 'form-control mb-2'],
@@ -35,14 +36,22 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            // Champ de type Email pour l'email (on vérifie qu'on a bien un email)
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'empty_data' => '',
                 'attr' => ['class' => 'form-control mb-2'],
                 'constraints' => [
-                    new Email(['message' => 'Votre adresse email est invalide'])
+                    new Email(['message' => 'Votre adresse email est invalide']),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Merci d\'entrer une adresse email',
+                        'max' => 255,
+                        'maxMessage' => 'Votre email ne peut pas faire plus de {{ limit }} caractères'
+                    ])
                 ]
             ])
+            // Checkbox pou accepter les conditions d'utilisation
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => false,
                 'mapped' => false,
@@ -52,6 +61,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            // Champ de type Repeated avec deux champs Password pour gérer la répétition du mot de passe
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Vos mots de passe ne correspondent pas',

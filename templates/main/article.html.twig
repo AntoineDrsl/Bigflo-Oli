@@ -50,7 +50,7 @@
         </div>
     {% endif %}
 
-    {% if comments.count() == 0 %}
+    {% if comments == [] %}
         <p id="noComment">Il n'y a aucun commentaire pour le moment :(</p>
     {% else %}
         <div id="commentsContainer">

@@ -19,7 +19,9 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // On construit le formulaire de modification du user en ajoutant directement les contraintes
         $builder
+            // Champ de type Text pour le pseudo
             ->add('pseudo', TextType::class, [
                 'label' => 'Nouveau pseudo',
                 'required' => false,
@@ -34,6 +36,7 @@ class UserType extends AbstractType
                     ])
                 ],
             ])
+            // Champ de type Email pour l'email (on vérifie qu'on a bien un email)
             ->add('email', EmailType::class, [
                 'label' => 'Nouveau email',
                 'required' => false,
@@ -49,6 +52,7 @@ class UserType extends AbstractType
                     ])
                 ]
             ])
+            // Champ de type Repeated avec deux champs Password pour gérer la répétition du mot de passe
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Vos mots de passe ne correspondent pas',
@@ -71,6 +75,7 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
+            // Champ de type File pour ajouter un avatar à son compte
             ->add('avatar', FileType::class, [
                 'label' => false,
                 'required' => false,

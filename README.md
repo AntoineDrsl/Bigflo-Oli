@@ -33,8 +33,9 @@ La bdd est composée de 3 entités:
 - Article, stockant tous les articles créés
 - Comment, stockant tous les commentaires, leur user et l'article lié
 
-Les routes sont définies au dessus de chaque fonction dans les controllers
-Les permissions des routes sont gérées dans 'config/packages/security.yaml'
+Les routes sont définies au dessus de chaque fonction dans les controllers.
+Les permissions des routes sont gérées dans 'config/packages/security.yaml'.
+Les contraintes des formulaires et messages d'erreur liés sont gérées dans les entités, au dessus de chaque champ (excepté pour l'inscription et la modification d'informations, où les contraintes sont gérées directement dans les formulaires)
 
 ## Licence :
 

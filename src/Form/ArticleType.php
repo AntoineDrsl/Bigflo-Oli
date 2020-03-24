@@ -19,11 +19,13 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            // Champ de type text pour le titre de l'article
             ->add('title', TextType::class, [
                 'label' => 'Titre de l\'article',
                 'attr' => ['class' => 'form-control mb-4'],
                 'empty_data' => ''
             ])
+            // Champ de type text utilisant le bundle fosckeditor (inclus dans 'public/bundles') pour le contenu de l'article
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu de l\'article',
                 'attr' => ['class' => 'form-control'],
@@ -34,11 +36,13 @@ class ArticleType extends AbstractType
                     'uiColor' => '#FCFCFC'
                 ]
             ])
+            // Champ de type File pour l'image de l'article
             ->add('image', FileType::class, [
                 'label' => false,
                 'attr' => ['class' => 'form-control-file'],
                 'empty_data' => ''
             ])
+            //Bouton de submit
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer l\'article',
                 'attr' => ['class' => 'btn btn-outline-primary btn-lg']

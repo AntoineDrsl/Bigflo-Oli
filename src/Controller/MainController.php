@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository, CommentRepository $commentRepository)
     {
         $this->articleRepository = $articleRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -65,7 +67,8 @@ class MainController extends AbstractController
         if(($article && $article->getState()) || ($article && $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))) {
 
             $user = $this->getUser();
-            $comments = $article->getComments();
+            $comments = $this->commentRepository->findByArticleDesc($article);
+            dump($comments);
             $newComment = new Comment();
 
             // On crée le formulaire défini dans 'Form/Comment.php'
