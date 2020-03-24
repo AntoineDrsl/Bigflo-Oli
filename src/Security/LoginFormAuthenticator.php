@@ -44,6 +44,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             && $request->isMethod('POST');
     }
 
+    // On récupère les champs du formulaire de logni
     public function getCredentials(Request $request)
     {
         $credentials = [
@@ -59,6 +60,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $credentials;
     }
 
+    // On vérifie si le User existe
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
@@ -76,6 +78,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $user;
     }
 
+    // On vérifie les informations du user
     public function checkCredentials($credentials, UserInterface $user)
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
@@ -99,6 +102,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return new RedirectResponse($this->urlGenerator->generate('account'));
     }
 
+    // On définie l'URL du login
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate('login');

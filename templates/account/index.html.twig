@@ -2,21 +2,25 @@
 
 {% block title %}Mon compte - {{ app.user.pseudo }}{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/account.css') }}">{% endblock%}
 
 {% block body %}
 <div class="container">
 
+    <!-- Si il y a un message de succès, on l'affiche -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success my-3">
             {{ message }}
         </div>
     {% endfor %}
 
+    <!-- On affiche le compte de l'utilisateur -->
     <h1 class="text-center" id="accountTitle">Bienvenue {{ app.user.pseudo }}</h1>
 
     <div id="accountContainer">
         <div id="linkContainer">
+            <!-- Si l'utilisateur est admin, on affiche le lien vers la validation d'article -->
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('validate-articles') }}" class="btn btn-outline-light btn-block btn-lg mt-3">Voir les articles à valider</a><br>
             {% endif %}
@@ -26,6 +30,7 @@
         </div>
         <div id="avatarContainer">
             <a href="{{ path('update-user') }}">
+                <!-- Si l'utilisateur n'a pas d'avatar, on affiche l'image de base, sinon on affiche son avatar -->
                 {% if user.avatar == null %}
                     <div id="avatarBaseContainer">
                         <i class="far fa-user-circle"></i>

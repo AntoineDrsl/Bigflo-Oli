@@ -2,11 +2,13 @@
 
 {% block title %}Mon compte - {{ app.user.pseudo }}{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/update-user.css') }}">{% endblock%}
 
 {% block body %}
     <div class="container">
 
+        <!-- On met en forme le formulaire en découpant chaque champs avec la fonction form_row de Twig -->
         {{ form_start(userForm) }}
 
             <h1 class="my-5 text-center">Modifier mes informations</h1>
@@ -21,6 +23,7 @@
                     <label for="user_avatar" class="avatarLabel">
                         <p class="text-center">Photo de profil</p>
                         <div id="avatarContainer">
+                            <!-- Si le user a déjà un avatar, on affiche son avatar de base dans le label -->
                             <img id="avatar" class="w-100 hasBorder" {% if user.avatar %}src="{{ asset('assets/uploads/users/' ~ user.avatar) }}"{% endif %}>
                         </div>
                     </label>
@@ -37,6 +40,7 @@
     </div>
 {% endblock %}
 
+<!-- On appelle le JS -->
 {% block javascripts %}
 <script src="{{ asset('assets/js/update-user.js') }}"></script>
 {% endblock %}

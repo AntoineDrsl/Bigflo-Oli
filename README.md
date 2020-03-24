@@ -35,7 +35,10 @@ La bdd est composée de 3 entités:
 
 Les routes sont définies au dessus de chaque fonction dans les controllers.
 Les permissions des routes sont gérées dans 'config/packages/security.yaml'.
-Les contraintes des formulaires et messages d'erreur liés sont gérées dans les entités, au dessus de chaque champ (excepté pour l'inscription et la modification d'informations, où les contraintes sont gérées directement dans les formulaires)
+Les contraintes des formulaires et messages d'erreur liés sont gérées dans les entités, au dessus de chaque champ (excepté pour l'inscription et la modification d'informations, où les contraintes sont gérées directement dans les formulaires).
+
+Chaque vue dispose de sa propre feuille de style CSS (dans 'public/assets/css') pour que le code soit plus lisible et optimisé. De même pour le JS.
+Les vues d'erreur sont gérées dans 'templates/bundles/TwigBundle/Exception'.
 
 ## Licence :
 

@@ -66,7 +66,7 @@ class AccountController extends AbstractController
             // Si le user change son avatar
             if($form->get('avatar')->getData() !== null) {
 
-                // On supprime le fichier précédent avec la fonction définie dans l'entity Article
+                // On supprime le fichier précédent avec la fonction définie dans l'entity User
                 if($previousAvatarName) {
                     $user->deleteFileOnUpdate($previousAvatarName);
                 }

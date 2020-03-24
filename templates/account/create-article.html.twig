@@ -2,6 +2,7 @@
 
 {% block title %}Créer un article{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/create-article.css') }}">{% endblock%}
 
 {% block body %}
@@ -9,6 +10,7 @@
 
     <h1 class="my-5 text-center">Créer un article</h1>
 
+    <!-- On met en forme le formulaire en découpant chaque champs avec la fonction form_row de Twig -->
     {{ form_start(articleForm) }}
 
         <div class="row align-items-center">
@@ -17,6 +19,7 @@
                 {{ form_row(articleForm.content) }}
             </div>
             <div class="col-md-3 offset-md-1 text-center">
+                <!-- Pour afficher l'image dans le label avant le submit, on utilise le JS et on cache l'input de base -->
                 <label for="article_image" class="articleImageLabel">
                     <p>Image de couverture</p>
                     <div id="articleImgContainer" class="hasBorder">
@@ -37,6 +40,7 @@
 </div>
 {% endblock %}
 
+<!-- On appelle le JS -->
 {% block javascripts %}
 <script src="{{ asset('assets/js/create-article.js') }}"></script>
 {% endblock %}

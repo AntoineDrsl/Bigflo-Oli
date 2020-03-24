@@ -2,11 +2,13 @@
 
 {% block title %}{{ article.title | capitalize }}{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/articles.css') }}">{% endblock%}
 
 {% block body %}
 <div class="container">
 
+    <!-- Si il y a un message de succès, on l'affiche -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success my-3">
             {{ message }}
@@ -42,6 +44,7 @@
     <!-- Section commentaires  -->
     <h2 class="mt-5 mb-3">Commentaires</h2>
     
+    <!-- Si l'utilisateur est connecté, on affiche le formulaire de création de commentaire, sinon on l'invite à se connecter -->
     {% if is_granted('ROLE_USER') %}
         {{ form(commentForm) }}
     {% else %}
@@ -50,6 +53,7 @@
         </div>
     {% endif %}
 
+    <!-- Si il y a des commentaires, on les affiche -->
     {% if comments == [] %}
         <p id="noComment">Il n'y a aucun commentaire pour le moment :(</p>
     {% else %}
@@ -66,6 +70,7 @@
                     <div class="commentInfos">
                         <p class="comment">{{comment.content}}</p>
                         <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
+                        <!-- Si l'utilisateur est administrateur, on lui permet de supprimer les commentaires -->
                         {% if is_granted('ROLE_ADMIN') %}
                             <br>
                             <a href="{{ path('remove-comment', {id: comment.id}) }}" class="btn btn-outline-danger">Supprimer</a>

@@ -192,6 +192,7 @@ class User implements UserInterface
         return $this;
     }
 
+    // Fonction créée pour supprimer l'ancien avatar si l'avatar du user est changée
     public function deleteFileOnUpdate(String $previousImage) 
     {
         if(file_exists(__DIR__ . '/../../public/assets/uploads/users/'.$previousImage)) {

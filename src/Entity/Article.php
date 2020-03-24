@@ -161,6 +161,7 @@ class Article
         return $this;
     }
 
+    //Fonction pour supprimer l'image à la suppression de l'article
     /**
     * @ORM\PostRemove
     */
@@ -172,6 +173,7 @@ class Article
         return true;
     }
 
+    // Fonction créée pour supprimer l'ancienne image si l'image de l'article est changée
     public function deleteFileOnUpdate(String $previousImage) 
     {
         if(file_exists(__DIR__ . '/../../public/assets/uploads/articles/'.$previousImage)) {

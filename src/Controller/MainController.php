@@ -68,7 +68,6 @@ class MainController extends AbstractController
 
             $user = $this->getUser();
             $comments = $this->commentRepository->findByArticleDesc($article);
-            dump($comments);
             $newComment = new Comment();
 
             // On crée le formulaire défini dans 'Form/Comment.php'

@@ -2,11 +2,13 @@
 
 {% block title %}Articles à valider{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/articles.css') }}">{% endblock%}
 
 {% block body %}
 <div class="container">
 
+    <!-- Si il y a des messages de succès ou d'erreur on les affiche -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success my-3">
             {{ message }}
@@ -18,12 +20,14 @@
         </div>
     {% endfor %}
 
+    <!-- On affiche tous les articles en attente de validation -->
     <h1 class="my-5 text-center">Tous les articles à valider</h1>
 
         <div id="waitingArticlesContainer">
             {% for article in articles %}
                 <div class="articleContainer">
                     <div class="contentContainer">
+                        <!-- Chaque article mène sur sa page d'article -->
                         <a href="{{ path('article', {id: article.id}) }}">
                             <img src="{{ asset('assets/uploads/articles/' ~ article.image) }}" alt="{{ article.title }}">
                         </a>
@@ -32,6 +36,7 @@
                         <h2>{{ article.title }}</h2>
                     </a>
                     <em>Le {{ article.createdAt.date | date("d/m/Y") }}</em>
+                    <!-- On propose directement de valider ou supprimer l'article en fonction de l'image par exemple -->
                     <div class="btnContainer">
                         <a href="{{ path('validate-article', {id: article.id}) }}" class="btn btn-outline-success">Valider l'article</a>
                         <a href="{{ path('remove-article', {id: article.id}) }}" class="btn btn-outline-danger">Supprimer l'article</a>

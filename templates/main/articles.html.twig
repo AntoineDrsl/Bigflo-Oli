@@ -2,11 +2,13 @@
 
 {% block title %}Réalisations{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/articles.css') }}">{% endblock%}
 
 {% block body %}
 <div class="container">
 
+    <!-- Si il y a des messages de succès ou d'erreur, on les affiche -->
     {% for message in app.flashes('success') %}
         <div class="alert alert-success my-3">
             {{ message }}
@@ -20,10 +22,12 @@
 
     <h1 class="my-5 text-center">Tous les articles</h1>
 
+        <!-- On affiche l'image et le titre de chaque article -->
         <div id="articlesContainer">
             {% for article in articles %}
                 <div class="articleContainer">
                     <div>
+                        <!-- Chaque article mène sur sa page -->
                         <a href="{{ path('article', {id: article.id}) }}">
                             <img src="{{ asset('assets/uploads/articles/' ~ article.image) }}" alt="{{ article.title }}">
                         </a>

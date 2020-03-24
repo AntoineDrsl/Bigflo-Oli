@@ -2,9 +2,11 @@
 
 {% block title %}Bigflo & Oli - Biographie{% endblock %}
 
+<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/bio.css') }}">{% endblock%}
 
 {% block body %}
+    <!-- Note de musique segmentée, qu'on va faire apparaître petit à petit en JS -->
     <svg class="svg-icon" viewBox="0 0 20 20" id="svg-icon">
         <path fill="none" stroke="white" stroke-width="1" id="path-icon" d="M19.325,1.521c0-0.241-0.113-0.468-0.306-0.614c-0.192-0.146-0.444-0.194-0.675-0.125L8.152,3.699
         C8.137,3.703,8.126,3.714,8.111,3.72C8.06,3.738,8.015,3.765,7.969,3.793C7.928,3.819,7.888,3.84,7.854,3.87
@@ -92,6 +94,7 @@
     </div>
 {% endblock %}
 
+<!-- On appelle le JS et la libraire scrollOut qui permet l'apparition des sections au scroll -->
 {% block javascripts %}
 <script src="https://unpkg.com/scroll-out/dist/scroll-out.min.js"></script>
 <script src="{{ asset('assets/js/bio.js') }}"></script>

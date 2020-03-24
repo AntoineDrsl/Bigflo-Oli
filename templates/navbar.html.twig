@@ -1,5 +1,6 @@
+<!-- On ajoute la class 'active' si la variable onPage (passée dans chaque vue) est égal au nom de la page -->
 <div id="navbar">
-
+    
     <a href="{{ path('home') }}" class="navbar-item" id="{% if onPage == 'home'%}active{% endif %}">
         <h5>Accueil</h5>
     </a>
@@ -15,6 +16,7 @@
 
 </div>
 
+<!-- Partie responsive de la navbar -->
 <div id="burger">
     <i class="fas fa-bars"></i>
 </div>
