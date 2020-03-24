@@ -2,7 +2,6 @@
 
 {% block title %}Bigflo & Oli - Biographie{% endblock %}
 
-<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/bio.css') }}">{% endblock%}
 
 {% block body %}
@@ -94,8 +93,8 @@
     </div>
 {% endblock %}
 
-<!-- On appelle le JS et la libraire scrollOut qui permet l'apparition des sections au scroll -->
 {% block javascripts %}
+<!-- On appelle le JS et la libraire scrollOut qui permet l'apparition des sections au scroll -->
 <script src="https://unpkg.com/scroll-out/dist/scroll-out.min.js"></script>
 <script src="{{ asset('assets/js/bio.js') }}"></script>
 {% endblock %}
