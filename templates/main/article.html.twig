@@ -2,7 +2,6 @@
 
 {% block title %}{{ article.title | capitalize }}{% endblock %}
 
-<!-- On appelle le CSS -->
 {% block stylesheets %}<link rel="stylesheet" href=" {{ asset('assets/css/articles.css') }}">{% endblock%}
 
 {% block body %}
@@ -42,44 +41,47 @@
     <a href="{{ path('articles') }}" class="btn btn-outline-light mt-5">Revenir à tous les articles</a>
 
     <!-- Section commentaires  -->
-    <h2 class="mt-5 mb-3">Commentaires</h2>
-    
-    <!-- Si l'utilisateur est connecté, on affiche le formulaire de création de commentaire, sinon on l'invite à se connecter -->
-    {% if is_granted('ROLE_USER') %}
-        {{ form(commentForm) }}
-    {% else %}
-        <div class="alert alert-dark" role="alert">
-            <a href="{{ path('login') }}" class="alert-link">Connectez vous</a> pour poster un commentaire !
-        </div>
-    {% endif %}
+    <!-- Si l'article est validé, on affiche la section commentaire -->
+    {% if article.state == true %}
+        <h2 class="mt-5 mb-3">Commentaires</h2>
+        
+        <!-- Si l'utilisateur est connecté, on affiche le formulaire de création de commentaire, sinon on l'invite à se connecter -->
+        {% if is_granted('ROLE_USER') %}
+            {{ form(commentForm) }}
+        {% else %}
+            <div class="alert alert-dark" role="alert">
+                <a href="{{ path('login') }}" class="alert-link">Connectez vous</a> pour poster un commentaire !
+            </div>
+        {% endif %}
 
-    <!-- Si il y a des commentaires, on les affiche -->
-    {% if comments == [] %}
-        <p id="noComment">Il n'y a aucun commentaire pour le moment :(</p>
-    {% else %}
-        <div id="commentsContainer">
-            {% for comment in comments %}
-                <div class="commentContainer">
-                    <div class="commentAvatar">
-                        {% if comment.user.avatar %}
-                            <img src="{{ asset('assets/uploads/users/' ~ comment.user.avatar) }}" alt="avatar">
-                        {% else %}
-                            <i class="far fa-user-circle"></i>
-                        {% endif %}
+        <!-- Si il y a des commentaires, on les affiche -->
+        {% if comments == [] %}
+            <p id="noComment">Il n'y a aucun commentaire pour le moment :(</p>
+        {% else %}
+            <div id="commentsContainer">
+                {% for comment in comments %}
+                    <div class="commentContainer">
+                        <div class="commentAvatar">
+                            {% if comment.user.avatar %}
+                                <img src="{{ asset('assets/uploads/users/' ~ comment.user.avatar) }}" alt="avatar">
+                            {% else %}
+                                <i class="far fa-user-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div class="commentInfos">
+                            <p class="comment">{{comment.content}}</p>
+                            <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
+                            <!-- Si l'utilisateur est administrateur, on lui permet de supprimer les commentaires -->
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <br>
+                                <a href="{{ path('remove-comment', {id: comment.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                            {% endif %}
+                            <hr>
+                        </div>
                     </div>
-                    <div class="commentInfos">
-                        <p class="comment">{{comment.content}}</p>
-                        <em>De {{ comment.user.pseudo }} le {{ comment.createdAt.date | date('d/m/Y') }}</em>
-                        <!-- Si l'utilisateur est administrateur, on lui permet de supprimer les commentaires -->
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <br>
-                            <a href="{{ path('remove-comment', {id: comment.id}) }}" class="btn btn-outline-danger">Supprimer</a>
-                        {% endif %}
-                        <hr>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
 
 </div>
